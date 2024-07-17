@@ -1,12 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cards from "./Cards";
 import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
-
+import { setUserEarnings, getUserEarnings } from "../../services/realtimeDatabaseService";
 const Mains = () => {
   const [count, setCount] = useState(0);
-
+  const [loading, setLoading] = useState(true); // Flag to track initial loading
   const { user } = useAuth();
+
+  useEffect(() => {
+    const fetchEarnings = async () => {
+      if (user) {
+        try {
+          const earnings = await getUserEarnings(user.uid);
+          setCount(earnings);
+        } catch (error) {
+          console.error("Error fetching earnings: ", error);
+        } finally {
+          setLoading(false); // Set loading to false once fetching is done
+        }
+      }
+    };
+    fetchEarnings();
+  }, [user]);
+
+  useEffect(() => {
+    if (user && !loading) { // Only update if not loading
+      try {
+        setUserEarnings(user.uid, count);
+      } catch (error) {
+        console.error("Error setting earnings: ", error);
+      }
+    }
+  }, [count, user, loading]);
 
   return (
     <div className="mains">

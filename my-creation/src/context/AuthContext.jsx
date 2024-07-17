@@ -1,26 +1,32 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../config/firebaseConfig'; // Adjust the import path as necessary
+import { auth } from '../config/firebaseConfig';
+import { getUserEarnings } from '../services/realtimeDatabaseService'; // Correct import
 
-// Create the AuthContext
 const AuthContext = createContext();
 
-// Custom hook to use the AuthContext
 export const useAuth = () => useContext(AuthContext);
 
-// AuthProvider component to wrap around the app
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [earnings, setEarnings] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      if (currentUser) {
+        const userEarnings = await getUserEarnings(currentUser.uid);
+        setEarnings(userEarnings);
+      } else {
+        setEarnings(0);
+      }
     });
     return () => unsubscribe();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user }}>
+    <AuthContext.Provider value={{ user, earnings, setEarnings }}>
       {children}
     </AuthContext.Provider>
   );
