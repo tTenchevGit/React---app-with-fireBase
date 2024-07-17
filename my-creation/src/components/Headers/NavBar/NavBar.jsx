@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../../config/firebaseConfig"; 
+import { useAuth } from "../../../context/AuthContext.jsx"; 
 import UserDropdown from "./UserDropdown"; 
 
 const NavBar = () => {
+  const { user } = useAuth(); // Access the user state from the context
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useState(null); 
 
   const menuRef = useRef(null);
 
@@ -16,21 +15,17 @@ const NavBar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  
+  // Close menu when clicking outside
   const handleClickOutside = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
       setIsMenuOpen(false);
     }
   };
 
-  
+  // Monitor clicks outside the menu
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser); 
-    });
     document.addEventListener("click", handleClickOutside);
     return () => {
-      unsubscribe(); 
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
@@ -56,8 +51,8 @@ const NavBar = () => {
         {user ? (
           <UserDropdown user={user} />
         ) : (
-          <div className="signUpButtonsWrapper">
-            <Link className="signUpButton" to="/create">
+          <div className="auth-options-item">
+            <Link className="signUpButton" to="/signup">
               Sign Up
             </Link>
             <Link className="signUpButton" to="/login">
@@ -68,11 +63,12 @@ const NavBar = () => {
       </div>
       <style>
         {`
-        .signUpButtonsWrapper{
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-        }
+
+          .auth-options-item{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          }
           .navBar {
             display: flex;
             align-items: center;
@@ -84,12 +80,12 @@ const NavBar = () => {
           }
 
           .signUpButton {
-          
             padding: 4px 10px;
             text-decoration: none;
             color: #fff;
             background-color: #007bff;
             border-radius: 5px;
+            margin-left: 10px; /* Added margin for spacing between buttons */
           }
 
           .logo {
@@ -154,6 +150,8 @@ const NavBar = () => {
             
             .navBar .links.open {
               display: flex;
+              margin-top: 50px;
+              z-index: 10;
             }
           
             .navBar .hamburger {
@@ -178,6 +176,8 @@ const NavBar = () => {
 
           .auth-options {
             margin-left: auto; /* Ensure the auth options (Sign Up or UserDropdown) are on the right side */
+            display: flex;
+            align-items: center;
           }
 
           .user-dropdown {
