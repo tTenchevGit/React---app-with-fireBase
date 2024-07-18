@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../config/firebaseConfig';
-import { getUserEarnings } from '../services/realtimeDatabaseService'; // Correct import
+import { getUserEarnings } from '../services/realtimeDatabaseService'; 
 
 const AuthContext = createContext();
 

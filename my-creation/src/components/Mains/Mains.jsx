@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Cards from "./Cards";
+import EarnButton from "./ButtonsEarnSpend/EarnButton";
+import SpentButton from "./ButtonsEarnSpend/SpentButton";
 import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { setUserEarnings, getUserEarnings } from "../../services/realtimeDatabaseService";
@@ -7,6 +9,7 @@ const Mains = () => {
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true); // Flag to track initial loading
   const { user } = useAuth();
+  const earnButtonRef = useRef(null);
 
   useEffect(() => {
     const fetchEarnings = async () => {
@@ -34,6 +37,12 @@ const Mains = () => {
     }
   }, [count, user, loading]);
 
+  const resetEarnButton = () => {
+    if (earnButtonRef.current) {
+      earnButtonRef.current.resetCooldown(); 
+    }
+  };
+
   return (
     <div className="mains">
       <div>
@@ -41,18 +50,8 @@ const Mains = () => {
           <div className="mains">
             <h1>{`${count.toFixed(4)}$`}</h1>
             <div className="buttonsWrapper">
-              <button
-                className="buttonMoney earnButton"
-                onClick={() => setCount(count + Math.random() * 2)}
-              >
-                Earn
-              </button>
-              <button
-                className="buttonMoney"
-                onClick={() => setCount(count - Math.random() * 2)}
-              >
-                Spend
-              </button>
+            <EarnButton ref={earnButtonRef} count={count} setCount={setCount} /> 
+              <SpentButton count={count} setCount={setCount} resetEarnButton={resetEarnButton} /> 
             </div>
             <Cards count={count} />
           </div>
