@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../../config/firebaseConfig"; 
+import { useAuth } from "../../../../context/AuthContext";
 
-const UserDropdown = ({ user, spentClicks = [], withdrawVisibleUntil }) => {
+const UserDropdown = ({ user}) => {
+  const { spentClicks, withdrawVisibleUntil } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showWithdraw, setShowWithdraw] = useState(false);
   const dropdownRef = useRef(null);
@@ -26,39 +28,37 @@ const UserDropdown = ({ user, spentClicks = [], withdrawVisibleUntil }) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   // Check if there are 30 or more clicks in the last 30 days
-  //   const thirtyDaysAgo = Date.now() - (30 * 24 * 60 * 60 * 1000);
-  //   const recentClicks = spentClicks.filter(click => click > thirtyDaysAgo);
-  //   if (recentClicks.length >= 30) {
-  //     setShowWithdraw(true);
-  //   } else {
-  //     setShowWithdraw(false);
-  //   }
-  // }, [spentClicks]);
-
   useEffect(() => {
-    const now = Date.now();
-    const thirtyDaysAgo = now - (30 * 24 * 60 * 60 * 1000);
-    const recentClicks = spentClicks.filter(click => click > thirtyDaysAgo);
-
-    // Check if there are 30 or more clicks in the last 30 days
-    if (recentClicks.length >= 30) {
-      if (!withdrawVisibleUntil) {
-        // Set withdraw visibility for the next 30 days if not already set
-        const visibilityUntil = new Date(now + 30 * 24 * 60 * 60 * 1000);
-        localStorage.setItem('withdrawVisibleUntil', visibilityUntil);
-        setShowWithdraw(true);
-      } else if (new Date() < new Date(withdrawVisibleUntil)) {
-        // Show withdraw button if within the visibility period
-        setShowWithdraw(true);
-      } else {
-        setShowWithdraw(false);
-      }
+    const now = new Date();
+    if (withdrawVisibleUntil && now < new Date(withdrawVisibleUntil)) {
+      setShowWithdraw(true);
     } else {
       setShowWithdraw(false);
     }
-  }, [spentClicks, withdrawVisibleUntil]);
+  }, [withdrawVisibleUntil]);
+
+  // useEffect(() => {
+  //   const now = Date.now();
+  //   const thirtyDaysAgo = now - (30 * 24 * 60 * 60 * 1000);
+  //   const recentClicks = spentClicks.filter(click => click > thirtyDaysAgo);
+
+  //   // Check if there are 30 or more clicks in the last 30 days
+  //   if (recentClicks.length >= 30) {
+  //     if (!withdrawVisibleUntil) {
+  //       // Set withdraw visibility for the next 30 days if not already set
+  //       const visibilityUntil = new Date(now + 30 * 24 * 60 * 60 * 1000);
+  //       localStorage.setItem('withdrawVisibleUntil', visibilityUntil);
+  //       setShowWithdraw(true);
+  //     } else if (new Date() < new Date(withdrawVisibleUntil)) {
+  //       // Show withdraw button if within the visibility period
+  //       setShowWithdraw(true);
+  //     } else {
+  //       setShowWithdraw(false);
+  //     }
+  //   } else {
+  //     setShowWithdraw(false);
+  //   }
+  // }, [spentClicks, withdrawVisibleUntil]);
   
   const handleLogout = async () => {
     await signOut(auth);

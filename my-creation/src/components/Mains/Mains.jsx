@@ -54,7 +54,7 @@ const Mains = () => {
             <h1>{`${count.toFixed(4)}$`}</h1>
             <div className="buttonsWrapper">
             <EarnButton ref={earnButtonRef} count={count} setCount={setCount} /> 
-              <SpentButton count={count} setCount={setCount} resetEarnButton={resetEarnButton} addSpentClick={addSpentClick} /> 
+              <SpentButton count={count} setCount={setCount} resetEarnButton={resetEarnButton}  /> {/* addSpentClick={addSpentClick} */}
             </div>
             <Cards count={count} />
           </div>
