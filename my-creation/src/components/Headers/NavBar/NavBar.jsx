@@ -32,7 +32,7 @@ const NavBar = () => {
 
   return (
     <div className="navBar">
-      <div ref={menuRef} className={`links ${isMenuOpen ? "open" : ""}`}>
+      <div ref={menuRef} className={`links ${isMenuOpen ? "open" : ""} ${user ? "user-true" : ""}`}>
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
       </div>
@@ -152,6 +152,9 @@ const NavBar = () => {
               display: flex;
               margin-top: 50px;
               z-index: 10;
+            }
+            .navBar .links.open.user-true {
+              margin-top: 30px !important;
             }
           
             .navBar .hamburger {

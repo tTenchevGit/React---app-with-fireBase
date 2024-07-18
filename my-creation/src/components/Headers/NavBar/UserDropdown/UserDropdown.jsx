@@ -45,6 +45,7 @@ const UserDropdown = ({ user }) => {
       {isDropdownOpen && (
         <div className="dropdown-menu">
           <button onClick={handleLogout}>Logout</button>
+          <button >Settings</button>
         </div>
       )}
       <style>
@@ -69,6 +70,7 @@ const UserDropdown = ({ user }) => {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 10px;
             z-index: 1;
+            margin-top: 30px;
           }
 
           .dropdown-menu button {
