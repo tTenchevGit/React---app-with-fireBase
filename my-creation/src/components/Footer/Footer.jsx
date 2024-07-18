@@ -28,8 +28,8 @@ const Footer = () => {
                 <Link to='/About'>About</Link>  
                 <style>
                     {`  .footers{
-                          position: absolute;
-                          bottom: 0;
+                         width: 100%;
+                         display: flex;
                           width: 100%;
                           display: flex;
                           flex-direction: column;
@@ -37,6 +37,7 @@ const Footer = () => {
                           align-items: center;
                           background-color: #f1f1f1;
                           padding: 20px;
+                          margin-top: 20px;
                         }
                         .buttonsFooterWrapper{
                             display: flex;

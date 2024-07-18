@@ -1,11 +1,10 @@
 import React from 'react';
 
-
-const SpentButton = ({ count, setCount, resetEarnButton }) => {
-  
+const SpentButton = ({ count, setCount, resetEarnButton, addSpentClick }) => {
   const handleClick = () => {
     setCount(count - Math.random() * 2); 
     resetEarnButton(); 
+    addSpentClick(); // Call addSpentClick
   };
 
   return (

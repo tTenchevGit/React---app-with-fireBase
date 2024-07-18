@@ -4,7 +4,7 @@ import { useAuth } from "../../../context/AuthContext.jsx";
 import UserDropdown from "./UserDropdown"; 
 
 const NavBar = () => {
-  const { user } = useAuth(); // Access the user state from the context
+  const { user, spentClicks } = useAuth(); // Access the user and spentClicks from the context
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuRef = useRef(null);
@@ -34,7 +34,7 @@ const NavBar = () => {
     <div className="navBar">
       <div ref={menuRef} className={`links ${isMenuOpen ? "open" : ""} ${user ? "user-true" : ""}`}>
         <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
+        <Link to="/about">Rules</Link>
       </div>
       <div className="hamburger" onClick={toggleMenu}>
         &#9776; {/* Hamburger icon */}
@@ -49,7 +49,7 @@ const NavBar = () => {
       </Link>
       <div className="auth-options">
         {user ? (
-          <UserDropdown user={user} />
+          <UserDropdown user={user} spentClicks={spentClicks} />
         ) : (
           <div className="auth-options-item">
             <Link className="signUpButton" to="/signup">
@@ -63,8 +63,7 @@ const NavBar = () => {
       </div>
       <style>
         {`
-
-          .auth-options-item{
+          .auth-options-item {
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -77,6 +76,7 @@ const NavBar = () => {
             color: white;
             width: 100%;
             position: relative;
+            box-sizing: border-box;
           }
 
           .signUpButton {

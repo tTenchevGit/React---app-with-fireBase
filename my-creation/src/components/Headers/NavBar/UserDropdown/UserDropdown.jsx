@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../../config/firebaseConfig"; 
 
-const UserDropdown = ({ user }) => {
+const UserDropdown = ({ user, spentClicks = [], withdrawVisibleUntil }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [showWithdraw, setShowWithdraw] = useState(false);
   const dropdownRef = useRef(null);
 
   // Toggle dropdown menu
@@ -25,6 +26,39 @@ const UserDropdown = ({ user }) => {
     };
   }, []);
 
+  // useEffect(() => {
+  //   // Check if there are 30 or more clicks in the last 30 days
+  //   const thirtyDaysAgo = Date.now() - (30 * 24 * 60 * 60 * 1000);
+  //   const recentClicks = spentClicks.filter(click => click > thirtyDaysAgo);
+  //   if (recentClicks.length >= 30) {
+  //     setShowWithdraw(true);
+  //   } else {
+  //     setShowWithdraw(false);
+  //   }
+  // }, [spentClicks]);
+
+  useEffect(() => {
+    const now = Date.now();
+    const thirtyDaysAgo = now - (30 * 24 * 60 * 60 * 1000);
+    const recentClicks = spentClicks.filter(click => click > thirtyDaysAgo);
+
+    // Check if there are 30 or more clicks in the last 30 days
+    if (recentClicks.length >= 30) {
+      if (!withdrawVisibleUntil) {
+        // Set withdraw visibility for the next 30 days if not already set
+        const visibilityUntil = new Date(now + 30 * 24 * 60 * 60 * 1000);
+        localStorage.setItem('withdrawVisibleUntil', visibilityUntil);
+        setShowWithdraw(true);
+      } else if (new Date() < new Date(withdrawVisibleUntil)) {
+        // Show withdraw button if within the visibility period
+        setShowWithdraw(true);
+      } else {
+        setShowWithdraw(false);
+      }
+    } else {
+      setShowWithdraw(false);
+    }
+  }, [spentClicks, withdrawVisibleUntil]);
   
   const handleLogout = async () => {
     await signOut(auth);
@@ -46,6 +80,7 @@ const UserDropdown = ({ user }) => {
         <div className="dropdown-menu">
           <button onClick={handleLogout}>Logout</button>
           <button >Settings</button>
+          {showWithdraw && <button>Withdraw</button>}
         </div>
       )}
       <style>

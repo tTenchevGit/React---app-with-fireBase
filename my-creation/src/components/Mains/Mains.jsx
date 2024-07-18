@@ -7,8 +7,9 @@ import { Link } from "react-router-dom";
 import { setUserEarnings, getUserEarnings } from "../../services/realtimeDatabaseService";
 const Mains = () => {
   const [count, setCount] = useState(0);
+  
   const [loading, setLoading] = useState(true); // Flag to track initial loading
-  const { user } = useAuth();
+  const { user, addSpentClick } = useAuth();
   const earnButtonRef = useRef(null);
 
   useEffect(() => {
@@ -43,6 +44,8 @@ const Mains = () => {
     }
   };
 
+  
+
   return (
     <div className="mains">
       <div>
@@ -51,7 +54,7 @@ const Mains = () => {
             <h1>{`${count.toFixed(4)}$`}</h1>
             <div className="buttonsWrapper">
             <EarnButton ref={earnButtonRef} count={count} setCount={setCount} /> 
-              <SpentButton count={count} setCount={setCount} resetEarnButton={resetEarnButton} /> 
+              <SpentButton count={count} setCount={setCount} resetEarnButton={resetEarnButton} addSpentClick={addSpentClick} /> 
             </div>
             <Cards count={count} />
           </div>
