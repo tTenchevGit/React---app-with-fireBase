@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext.jsx"; 
 import UserDropdown from "./UserDropdown"; 
 
-const NavBar = () => {
+const NavBar = ({ count }) => {
   const { user, spentClicks } = useAuth(); // Access the user and spentClicks from the context
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -49,7 +49,7 @@ const NavBar = () => {
       </Link>
       <div className="auth-options">
         {user ? (
-          <UserDropdown user={user} spentClicks={spentClicks} />
+          <UserDropdown user={user} count={count} spentClicks={spentClicks} />
         ) : (
           <div className="auth-options-item">
             <Link className="signUpButton" to="/signup">

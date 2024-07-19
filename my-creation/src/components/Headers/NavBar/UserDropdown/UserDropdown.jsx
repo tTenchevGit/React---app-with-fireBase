@@ -3,7 +3,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../../../config/firebaseConfig"; 
 import { useAuth } from "../../../../context/AuthContext";
 
-const UserDropdown = ({ user}) => {
+const UserDropdown = ({user, count}) => {
   const { spentClicks, withdrawVisibleUntil } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showWithdraw, setShowWithdraw] = useState(false);
@@ -80,7 +80,12 @@ const UserDropdown = ({ user}) => {
         <div className="dropdown-menu">
           <button onClick={handleLogout}>Logout</button>
           <button >Settings</button>
-          {showWithdraw && <button>Withdraw</button>}
+          {/* {showWithdraw && <button>Withdraw</button>}
+          <div>Current Count: {count.toFixed(4)}$</div> */}
+          {count <= 0 && <button>Pay</button>}
+          {count > 0 && showWithdraw && <button>Withdraw</button>}
+          
+          
         </div>
       )}
       <style>
