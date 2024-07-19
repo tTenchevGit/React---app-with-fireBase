@@ -2,12 +2,15 @@ import React, { useState, useRef, useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../../config/firebaseConfig"; 
 import { useAuth } from "../../../../context/AuthContext";
+import PayBill from "./PayBill";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserDropdown = ({user, count}) => {
   const { spentClicks, withdrawVisibleUntil } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showWithdraw, setShowWithdraw] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate()
 
   // Toggle dropdown menu
   const toggleDropdown = () => {
@@ -71,6 +74,10 @@ const UserDropdown = ({user, count}) => {
     return email.substring(0, email.indexOf("@"));
   };
 
+  const handlePayClick = () => {
+    navigate('/paybill', { state: { count } }); // Navigate to PayBill with count as state
+  };
+
   return (
     <div className="user-dropdown" ref={dropdownRef}>
       <div className="user-greeting" onClick={toggleDropdown}>
@@ -82,8 +89,8 @@ const UserDropdown = ({user, count}) => {
           <button >Settings</button>
           {/* {showWithdraw && <button>Withdraw</button>}
           <div>Current Count: {count.toFixed(4)}$</div> */}
-          {count <= 0 && <button>Pay</button>}
-          {count > 0 && showWithdraw && <button>Withdraw</button>}
+           {count <= 0 && <button onClick={handlePayClick}>Pay</button>}
+          {count > 0 && showWithdraw && <button >Withdraw</button>}
           
           
         </div>

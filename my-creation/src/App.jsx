@@ -64,6 +64,7 @@ const App = () => {
       <div style={{ flex: 1 }}>
         <Outlet context={{ count, setCount }} /> {/* Pass count and setCount through Outlet context */}
       </div>
+      
       <Footer />
     </>
   );
