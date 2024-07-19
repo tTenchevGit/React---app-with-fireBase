@@ -28,7 +28,7 @@ const EarnButton = forwardRef(({ count, setCount }, ref) => {
     }, 8 * 60 * 60 * 1000); 
   };
 
-  // Use useImperativeHandle to expose the resetCooldown method to the parent component
+ 
   useImperativeHandle(ref, () => ({
     resetCooldown: () => {
       setIsDisabled(false); 
