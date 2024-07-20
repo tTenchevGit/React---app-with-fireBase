@@ -78,6 +78,11 @@ const UserDropdown = ({user, count}) => {
     navigate('/paybill', { state: { count } }); // Navigate to PayBill with count as state
   };
 
+
+  const handleWithdrawClick = () => {
+    navigate('/Withdrawal', { state: { count } }); // Pass count via state
+  };
+
   return (
     <div className="user-dropdown" ref={dropdownRef}>
       <div className="user-greeting" onClick={toggleDropdown}>
@@ -90,7 +95,7 @@ const UserDropdown = ({user, count}) => {
           {/* {showWithdraw && <button>Withdraw</button>}
           <div>Current Count: {count.toFixed(4)}$</div> */}
            {count <= 0 && <button onClick={handlePayClick}>Pay</button>}
-          {count > 0 && showWithdraw && <button >Withdraw</button>}
+          {count > 0 && showWithdraw && <button  onClick={handleWithdrawClick} >Withdraw</button>}
           
           
         </div>

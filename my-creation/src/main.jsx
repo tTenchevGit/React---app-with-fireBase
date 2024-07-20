@@ -9,6 +9,8 @@ import LoginPage from './components/LoginPage';
 import './index.css';
 import { AuthProvider } from './context/AuthContext.jsx'; // Ensure the correct import path
 import PayBill from './components/Headers/NavBar/UserDropdown/PayBill';
+import PrivateRoute from './Routes/PrivateRoute.jsx'
+import WithdrawalAmmount from './components/Headers/NavBar/UserDropdown/WithdrawalAmmount/WithdrawalAmmount';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -20,7 +22,23 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="about" element={<About />} />
             <Route path="signup" element={<SignUpPage />} />
             <Route path="login" element={<LoginPage />} />
-            <Route path="paybill" element={<PayBill />} />
+            {/* <Route path="paybill" element={<PayBill />} /> */}
+            <Route 
+              path="paybill" 
+              element={
+                <PrivateRoute>
+                  <PayBill />
+                </PrivateRoute>
+              } 
+            /> {/* Protect the PayBill route */}
+             <Route 
+              path="Withdrawal" 
+              element={
+                <PrivateRoute>
+                  <WithdrawalAmmount />
+                </PrivateRoute>
+              } 
+            /> {/* Protect the WithdrawalAmmount route */}
           </Route>
         </Routes>
       </BrowserRouter>
