@@ -30,7 +30,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                   <PayBill />
                 </PrivateRoute>
               } 
-            /> {/* Protect the PayBill route */}
+            /> 
              <Route 
               path="Withdrawal" 
               element={
