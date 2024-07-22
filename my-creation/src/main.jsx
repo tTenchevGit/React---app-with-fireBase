@@ -38,7 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                   <WithdrawalAmmount />
                 </PrivateRoute>
               } 
-            /> {/* Protect the WithdrawalAmmount route */}
+            /> {}
           </Route>
         </Routes>
       </BrowserRouter>
