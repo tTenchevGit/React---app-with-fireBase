@@ -14,7 +14,7 @@ import WithdrawalAmmount from './components/Headers/NavBar/UserDropdown/Withdraw
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthProvider> {/* Wrap the entire application with AuthProvider */}
+    <AuthProvider> 
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
