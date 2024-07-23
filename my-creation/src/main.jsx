@@ -7,7 +7,7 @@ import Mains from './components/Mains';
 import SignUpPage from './components/SignUpPage'; 
 import LoginPage from './components/LoginPage'; 
 import './index.css';
-import { AuthProvider } from './context/AuthContext.jsx'; // Ensure the correct import path
+import { AuthProvider } from './context/AuthContext.jsx';
 import PayBill from './components/Headers/NavBar/UserDropdown/PayBill';
 import PrivateRoute from './Routes/PrivateRoute.jsx'
 import WithdrawalAmmount from './components/Headers/NavBar/UserDropdown/WithdrawalAmmount/WithdrawalAmmount';
