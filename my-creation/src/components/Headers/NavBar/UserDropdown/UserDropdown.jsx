@@ -92,8 +92,7 @@ const UserDropdown = ({user, count}) => {
         <div className="dropdown-menu">
           <button onClick={handleLogout}>Logout</button>
           <button >Settings</button>
-          {/* {showWithdraw && <button>Withdraw</button>}
-          <div>Current Count: {count.toFixed(4)}$</div> */}
+          
            {count <= 0 && <button onClick={handlePayClick}>Pay</button>}
           {count > 0 && showWithdraw && <button  onClick={handleWithdrawClick} >Withdraw</button>}
           
