@@ -32,7 +32,7 @@ const WithdrawalAmmount = () => {
         </div>
         <button type="submit">Withdraw</button>
       </form>
-      {/* <div style={{color: 'red'}}>{count}</div> */}
+   
       <style>
         {`
           .withdrawal-container {
