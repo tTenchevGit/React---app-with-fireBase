@@ -11,7 +11,7 @@ const WithdrawalAmmount = () => {
     e.preventDefault();
     // Implement the logic for withdrawal here
     console.log(`Withdrawing amount: ${amount}`);
-    // Navigate to a confirmation page or back to home
+  
     navigate('/');
   };
 
