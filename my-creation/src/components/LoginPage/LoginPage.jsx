@@ -13,7 +13,7 @@ const LoginPage = () => {
     event.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/'); // Redirect to home page
+      navigate('/'); 
     } catch (error) {
       setError(error.message);
     }
