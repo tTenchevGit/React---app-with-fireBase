@@ -14,9 +14,7 @@ const Footer = () => {
                 <button 
                     
                     key={button}
-                    // style={{ 
-                    //     backgroundColor: activeButton === button ? 'blue' : '' 
-                    //   }}
+                   
                     className={activeButton === button ? 'active-button buttonsFooter' : 'buttonsFooter'}
                     onClick={() => setActiveButton(button)}
                 >
