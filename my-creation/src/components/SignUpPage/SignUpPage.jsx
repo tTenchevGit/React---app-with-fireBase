@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../config/firebaseConfig"; // Adjust the path as necessary
+import { auth } from "../../config/firebaseConfig"; 
 
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
