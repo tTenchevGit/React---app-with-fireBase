@@ -21,9 +21,7 @@ const Cards = ({ count }) => {
                   )}
                   
                 </div>
-                {/* <Link to="create" className="card-link">
-                <p className="card-text">Create your own account</p>
-                </Link> */}
+              
               </div>
             </div>
           
