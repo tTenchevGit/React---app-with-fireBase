@@ -3,7 +3,7 @@ import React from 'react';
 const About = () => {
   return (
     <div className="about-container">
-      <h1 className="about-title">Game Rules</h1>
+      <h1 className="about-title">Game Rules n</h1>
       <p className="about-description">
         Welcome to our earning game! Below are the rules to get you started and help you understand how to play and win.
       </p>
