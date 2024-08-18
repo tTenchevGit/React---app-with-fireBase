@@ -81,7 +81,7 @@ const About = () => {
 }
 
 .rule strong {
-  color: #d9534f; /* Highlight important terms in red */
+  color: #d9534f; 
 }
 
           `
