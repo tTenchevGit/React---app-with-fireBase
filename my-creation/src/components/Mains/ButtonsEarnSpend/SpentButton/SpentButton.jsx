@@ -7,7 +7,7 @@ const SpentButton = ({ count, setCount, resetEarnButton }) => {
   const handleClick = () => {
     setCount(count - Math.random() * 2); 
     resetEarnButton(); 
-    addSpentClick(); // Call addSpentClick
+    addSpentClick(); //
   };
 
   return (
