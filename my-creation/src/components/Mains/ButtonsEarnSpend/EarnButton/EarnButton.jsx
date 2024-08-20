@@ -20,7 +20,7 @@ const EarnButton = forwardRef(({ count, setCount }, ref) => {
 
   const handleClick = () => {
     const currentTime = new Date().getTime();
-    localStorage.setItem('earnButtonLastClick', currentTime.toString()); // Store current click time in localStorage
+    localStorage.setItem('earnButtonLastClick', currentTime.toString()); 
     setCount(count + Math.random() * 2); 
     setIsDisabled(true);
     setTimeout(() => {
