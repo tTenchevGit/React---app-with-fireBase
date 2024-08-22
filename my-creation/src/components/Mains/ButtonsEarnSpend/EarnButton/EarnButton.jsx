@@ -6,7 +6,7 @@ const EarnButton = forwardRef(({ count, setCount }, ref) => {
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
-    const lastClickTime = localStorage.getItem('earnButtonLastClick'); // Get the last click time from localStorage
+    const lastClickTime = localStorage.getItem('earnButtonLastClick');
     if (lastClickTime) {
       const remainingTime = getRemainingTime(parseInt(lastClickTime)); 
       if (remainingTime > 0) {
